@@ -1,0 +1,80 @@
+CREATE TABLE karyawan (id_karyawan INT PRIMARY KEY, 
+					   nama_karyawan VARCHAR(50) NOT NULL,
+					   tgl_lahir DATE NOT NULL,
+					   tgl_masuk DATE NOT NULL,
+					   id_divisi INT,
+					   id_pekerjaan INT,
+					   gaji INT);
+					   
+SELECT * FROM karyawan;
+
+CREATE TABLE divisi (id_divisi INT PRIMARY KEY,
+					 nama_divisi VARCHAR(20) NOT NULL);
+					 
+					 SELECT * FROM divisi;
+					 
+CREATE TABLE pekerjaan (id_pekerjaan INT PRIMARY KEY,
+					   nama_pekerjaan VARCHAR(20) NOT NULL,
+					   level_pekerajaan VARCHAR(20) NOT NULL );
+					  
+					  SELECT * FROM pekerjaan;
+					  
+INSERT INTO karyawan VALUES (1, 'Fanri Ahmadi', '1990-07-11', '2015-03-05', '2', '1', 80000000);
+INSERT INTO karyawan VALUES (2, 'Ronaldo Ajib', '1995-09-25', '2009-10-13', '2', '2', 50000000);
+INSERT INTO karyawan VALUES (3, 'Chris Bon', '1983-02-20', '2007-02-08', '1','3', 30000000);
+INSERT INTO karyawan VALUES (4, 'Ade Ria', '1989-07-06', '2015-07-10', '3','3', 30000000);
+INSERT INTO karyawan VALUES (5, 'Susi Susinta', '1988-10-12', '2011-02-04','1','4', 12000000);
+INSERT INTO karyawan VALUES (6, 'Robby Dirwas', '1997-12-30', '2013-03-10', '3','4', 1200000);
+INSERT INTO karyawan VALUES (7, 'Bambang Pemungkas', '1990-03-27', '2020-03-06','1','5', 8000000);
+INSERT INTO karyawan VALUES (8, 'Ahmad Dhina', '1993-05-24', '2015-06-11', '2', '5', 8000000);
+INSERT INTO karyawan VALUES (9, 'Arul Noah', '1979-10-21', '2005-08-10', '2', '5', 8000000);
+INSERT INTO karyawan VALUES (10, 'Sule Sutarman', '1986-07-17', '2014-10-10', '1', '5', 8000000);
+INSERT INTO karyawan VALUES (11, 'Boas Sutisna', '1991-08-13', '2014-10-10','3', '5', 8000000);
+						
+SELECT * FROM karyawan ORDER BY id_karyawan;
+
+DELETE FROM karyawan;
+
+SELECT * FROM divisi;
+
+UPDATE karyawan SET id_divisi = 1 WHERE id_karyawan = 1;
+UPDATE karyawan SET id_divisi = 1 WHERE id_karyawan = 2;
+UPDATE karyawan SET id_divisi = 2 WHERE id_karyawan = 3;
+UPDATE karyawan SET id_divisi = 2 WHERE id_karyawan = 5;
+UPDATE karyawan SET id_divisi = 3 WHERE id_karyawan = 7;
+UPDATE karyawan SET id_divisi = 3 WHERE id_karyawan = 10;
+UPDATE karyawan SET tgl_masuk = 2001-01-01 WHERE id_karyawan= 1;
+
+INSERT INTO divisi VALUES (1, 'BOD');
+INSERT INTO divisi VALUES (2, 'IT_Engineer');
+INSERT INTO divisi VALUES (3, 'Finance');
+
+SELECT * FROM divisi;
+
+INSERT INTO pekerjaan VALUES (1, 'CEO', 'A');
+INSERT INTO pekerjaan VALUES (2, 'Direktur', 'B');
+INSERT INTO pekerjaan VALUES (3, 'Manajer', 'C');
+INSERT INTO pekerjaan VALUES (4, 'Senior Staff', 'D');
+INSERT INTO pekerjaan VALUES (5, 'Junior Staff', 'E');
+
+SELECT * FROM pekerjaan;
+
+SELECT * FROM karyawan; --Jawaban soal No. 1
+
+SELECT * FROM karyawan ORDER BY tgl_lahir ASC LIMIT 1; --Jawaban soal no. 2
+
+SELECT p.nama_pekerjaan FROM karyawan k INNER JOIN pekerjaan p 
+ON k.id_pekerjaan = p.id_pekerjaan ORDER BY k.gaji DESC LIMIT 1; --Jawaban soal no. 3
+
+SELECT count(id_karyawan), d.nama_divisi FROM karyawan k INNER JOIN divisi d 
+ON k.id_divisi = d.id_divisi GROUP BY d.nama_divisi 
+ORDER BY count(id_karyawan) DESC;   --Jawaban soal no. 4
+
+SELECT * FROM karyawan ORDER BY gaji DESC LIMIT 1; --Jawaban soal no. 5
+
+SELECT * FROM karyawan ORDER BY tgl_masuk DESC LIMIT 1; --Jawaban soal no. 6
+
+
+SELECT k.nama_karyawan, d.nama_divisi, p.nama_pekerjaan, k.gaji FROM karyawan k INNER JOIN divisi d ON k.id_divisi = d.id_divisi 
+INNER JOIN pekerjaan p ON p.id_pekerjaan = k.id_pekerjaan ORDER BY k.gaji DESC; 
+
